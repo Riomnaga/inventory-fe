@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Items from './pages/Items'
 import Users from './pages/Users'
+import Roles from './pages/Roles'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="items" element={<Items />} />
           <Route path="users" element={<Users />} />
+          <Route path="roles" element={<Roles />} />
         </Route>
       </Routes>
     </BrowserRouter>

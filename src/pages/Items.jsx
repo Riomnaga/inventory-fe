@@ -6,39 +6,58 @@ const initialItems = [
   { id: 3, name: 'Logitech MX Keys', category: 'Keyboard', status: 'Available' },
 ]
 
+const emptyForm = { name: '', category: '', status: 'Available' }
+
 export default function Items() {
   const [items, setItems] = useState(initialItems)
   const [showForm, setShowForm] = useState(false)
-  const [form, setForm] = useState({ name: '', category: '', status: 'Available' })
+  const [form, setForm] = useState(emptyForm)
+  const [editingId, setEditingId] = useState(null)
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  function handleAdd(e) {
+  function startAdd() {
+    setForm(emptyForm)
+    setEditingId(null)
+    setShowForm(true)
+  }
+
+  function startEdit(item) {
+    setForm({ name: item.name, category: item.category, status: item.status })
+    setEditingId(item.id)
+    setShowForm(true)
+  }
+
+  function handleSubmit(e) {
     e.preventDefault()
     if (!form.name.trim()) return
-    const newItem = { id: Date.now(), ...form }
-    setItems([...items, newItem])
-    setForm({ name: '', category: '', status: 'Available' })
+    if (editingId) {
+      setItems(items.map(it => it.id === editingId ? { ...it, ...form } : it))
+    } else {
+      setItems([...items, { id: Date.now(), ...form }])
+    }
+    setForm(emptyForm)
+    setEditingId(null)
     setShowForm(false)
   }
 
   function handleDelete(id) {
-    setItems(items.filter(item => item.id !== id))
+    setItems(items.filter(it => it.id !== id))
   }
 
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1>Items</h1>
-        <button onClick={() => setShowForm(!showForm)}>
+        <button onClick={showForm ? () => setShowForm(false) : startAdd}>
           {showForm ? 'Cancel' : '+ Add item'}
         </button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleAdd} style={{ margin: '16px 0', display: 'flex', gap: 8 }}>
+        <form onSubmit={handleSubmit} style={{ margin: '16px 0', display: 'flex', gap: 8 }}>
           <input name="name" placeholder="Name" value={form.name} onChange={handleChange} />
           <input name="category" placeholder="Category" value={form.category} onChange={handleChange} />
           <select name="status" value={form.status} onChange={handleChange}>
@@ -46,7 +65,7 @@ export default function Items() {
             <option>Assigned</option>
             <option>Repair</option>
           </select>
-          <button type="submit">Save</button>
+          <button type="submit">{editingId ? 'Update' : 'Save'}</button>
         </form>
       )}
 
@@ -61,7 +80,10 @@ export default function Items() {
               <td>{item.name}</td>
               <td>{item.category}</td>
               <td>{item.status}</td>
-              <td><button onClick={() => handleDelete(item.id)}>Delete</button></td>
+              <td style={{ display: 'flex', gap: 8 }}>
+                <button onClick={() => startEdit(item)}>Edit</button>
+                <button onClick={() => handleDelete(item.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
