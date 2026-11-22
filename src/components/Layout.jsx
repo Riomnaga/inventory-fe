@@ -21,8 +21,7 @@ export default function Layout() {
         <nav style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <Link to="/" style={{ color: '#fff' }}>Dashboard</Link>
           <Link to="/items" style={{ color: '#fff' }}>Items</Link>
-          <Link to="/users" style={{ color: '#fff' }}>Users</Link>
-          <Link to="/roles" style={{ color: '#fff' }}>Roles</Link>
+          {isAdmin && <Link to="/users" style={{ color: '#fff' }}>Users</Link>}
           {currentUser && <Link to="/profile" style={{ color: '#fff' }}>My Profile</Link>}
         </nav>
         {currentUser && (
