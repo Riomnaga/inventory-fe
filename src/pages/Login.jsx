@@ -26,13 +26,13 @@ export default function Login() {
   }
 
   return (
-    <div style={{ maxWidth: 320, margin: '80px auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <form onSubmit={handleSubmit}>
       <h1>Login</h1>
       <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
       <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
       {error && <div style={{ color: 'red' }}>{error}</div>}
-      <button onClick={handleSubmit}>Sign in</button>
+      <button type="submit">Sign in</button>
       <small>Try: admin / 1234 or user / 1234</small>
-    </div>
+    </form>
   )
 }
