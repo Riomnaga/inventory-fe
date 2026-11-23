@@ -1,12 +1,13 @@
 import { useState } from 'react'
 
 const initialUsers = [
-  { id: 1, name: 'Alice', email: 'alice@example.com', role: 'admin' },
-  { id: 2, name: 'Bob',   email: 'bob@example.com',   role: 'user' },
-  { id: 3, name: 'Carol', email: 'carol@example.com', role: 'user' },
+  { id: 1, name: 'Alice', email: 'alice@example.com', role: 'admin', managerId: null },
+  { id: 2, name: 'Bob',   email: 'bob@example.com',   role: 'user',  managerId: 1 },
+  { id: 3, name: 'Carol', email: 'carol@example.com', role: 'user',  managerId: 1 },
+  { id: 4, name: 'Dave',  email: 'dave@example.com',  role: 'user',  managerId: 2 },
 ]
 
-const emptyForm = { name: '', email: '', role: 'user' }
+const emptyForm = { name: '', email: '', role: 'user', managerId: '' }
 
 export default function Users() {
   const [users, setUsers] = useState(initialUsers)
@@ -82,6 +83,12 @@ export default function Users() {
             <option value="user">user</option>
             <option value="admin">admin</option>
           </select>
+          <select name="managerId" value={form.managerId} onChange={handleChange}>
+            <option value="">No manager</option>
+            {users.filter(u => u.id !== editingId).map(u => (
+              <option key={u.id} value={u.id}>{u.name}</option>
+            ))}
+          </select>
           <button type="submit">{editingId ? 'Update' : 'Save'}</button>
         </form>
       )}
@@ -89,7 +96,7 @@ export default function Users() {
       <table border="1" cellPadding="8" style={{ borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Actions</th>
+            <th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Actions</th><th>Manager</th>
           </tr>
         </thead>
         <tbody>
@@ -107,6 +114,7 @@ export default function Users() {
                 <button onClick={() => startEdit(u)}>Edit</button>
                 <button onClick={() => handleDelete(u.id)}>Delete</button>
               </td>
+              <td>{users.find(m => m.id === u.managerId)?.name || '—'}</td>
             </tr>
           ))}
         </tbody>

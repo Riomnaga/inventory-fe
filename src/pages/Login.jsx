@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const FAKE_USERS = {
-  admin: { password: '1234', role: 'admin', name: 'Administrator' },
-  user:  { password: '1234', role: 'user',  name: 'Regular User' },
+    admin: { password: '1234', id: 1, role: 'admin', name: 'Administrator' },
+    user:  { password: '1234', id: 2, role: 'user',  name: 'Regular User' },
 }
 
 export default function Login() {
