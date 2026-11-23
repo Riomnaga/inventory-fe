@@ -1,0 +1,137 @@
+.login-page {
+  --login-surface: #ffffff;
+  --login-ink: #14212b;
+  --login-muted: #5b6873;
+  --login-line: #cdd5db;
+  --login-accent: #1d5c86;
+  --login-accent-ink: #ffffff;
+  --login-error: #b42318;
+  --login-backdrop: #eef2f5;
+
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background: var(--login-backdrop);
+  text-align: left;
+}
+
+@media (prefers-color-scheme: dark) {
+  .login-page {
+    --login-surface: #1b2229;
+    --login-ink: #e8edf1;
+    --login-muted: #9aa7b2;
+    --login-line: #33404b;
+    --login-accent: #5fa8d6;
+    --login-accent-ink: #0d1a24;
+    --login-error: #f29b91;
+    --login-backdrop: #12171c;
+  }
+}
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px 28px 24px;
+  background: var(--login-surface);
+  border: 1px solid var(--login-line);
+  border-radius: 10px;
+}
+
+/* Small barcode, like an asset tag on a laptop */
+.login-tag {
+  width: 112px;
+  height: 18px;
+  opacity: 0.85;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--login-ink) 0 2px,
+    transparent 2px 3px,
+    var(--login-ink) 3px 4px,
+    transparent 4px 7px,
+    var(--login-ink) 7px 10px,
+    transparent 10px 11px,
+    var(--login-ink) 11px 12px,
+    transparent 12px 14px
+  );
+}
+
+.login-title {
+  margin: 4px 0 0;
+  font-size: 28px;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.4px;
+  color: var(--login-ink);
+}
+
+.login-subtitle {
+  margin: -8px 0 8px;
+  font-size: 15px;
+  color: var(--login-muted);
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--login-ink);
+}
+
+.login-field input {
+  font: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 10px 12px;
+  color: var(--login-ink);
+  background: var(--login-surface);
+  border: 1px solid var(--login-line);
+  border-radius: 6px;
+}
+
+.login-field input:focus-visible {
+  outline: 2px solid var(--login-accent);
+  outline-offset: 1px;
+  border-color: var(--login-accent);
+}
+
+.login-error {
+  margin: 0;
+  font-size: 14px;
+  color: var(--login-error);
+}
+
+.login-button {
+  margin-top: 4px;
+  padding: 11px 16px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--login-accent-ink);
+  background: var(--login-accent);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  filter: brightness(1.08);
+}
+
+.login-button:focus-visible {
+  outline: 2px solid var(--login-ink);
+  outline-offset: 2px;
+}
+
+.login-hint {
+  margin: 4px 0 0;
+  font-size: 13px;
+  text-align: center;
+  color: var(--login-muted);
+}
