@@ -1,14 +1,10 @@
-import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 export default function Layout() {
   const raw = localStorage.getItem('currentUser')
   const currentUser = raw ? JSON.parse(raw) : null
   const isAdmin = currentUser?.role === 'admin'
   const navigate = useNavigate()
-  
-  if (!currentUser){
-    return <Navigate to="/login" replace/>
-  }
 
   function handleLogout() {
     localStorage.removeItem('currentUser')
